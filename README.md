@@ -13,11 +13,18 @@ ssmctl의 Homebrew 설치 정의와 사전 빌드 패키지(bottle)를 관리합
 ```bash
 brew tap gyubeom-j/tap git@github.com:gyubeom-j/homebrew-tap.git
 # GitHub Packages 인증 환경변수를 준비한 뒤 실행
-brew install --force-bottle gyubeom-j/tap/ssmctl
+(
+  set -e
+  HOMEBREW_DOCKER_REGISTRY_TOKEN="$(brew ruby "$(brew --repository gyubeom-j/tap)/lib/ghcr-token.rb")"
+  export HOMEBREW_DOCKER_REGISTRY_TOKEN
+  brew install --force-bottle gyubeom-j/tap/ssmctl
+)
 ssmctl version
 ```
 
 `HOMEBREW_GITHUB_PACKAGES_USER`와 `HOMEBREW_GITHUB_PACKAGES_TOKEN`은 사용자 환경에서 안전하게 준비합니다. 패키지 읽기에는 classic PAT의 `read:packages` 권한과 대상 패키지 접근 권한이 필요합니다. 토큰을 formula·문서·커밋에 기록하지 마세요.
+
+두 변수만으로는 Homebrew 다운로드에 인증되지 않습니다. `lib/ghcr-token.rb`가 PAT를 GHCR의 읽기 전용 단기 토큰으로 교환하고, 위 명령은 그 토큰을 설치 프로세스에만 전달합니다. 도우미를 단독 실행하거나 디버그 출력을 켜면 비밀 값이 노출될 수 있으므로 반드시 위 명령 치환 형태로 실행하세요. Docker는 필요하지 않습니다.
 
 지원 범위는 macOS 15 이상, Intel·Apple Silicon입니다. Go 설치나 소스 빌드가 필요하지 않습니다. 실제 AWS 접속에는 사용자 로그인과 Session Manager plugin이 별도로 필요합니다.
 
@@ -25,7 +32,12 @@ ssmctl version
 
 ```bash
 brew update
-brew upgrade --force-bottle gyubeom-j/tap/ssmctl
+(
+  set -e
+  HOMEBREW_DOCKER_REGISTRY_TOKEN="$(brew ruby "$(brew --repository gyubeom-j/tap)/lib/ghcr-token.rb")"
+  export HOMEBREW_DOCKER_REGISTRY_TOKEN
+  brew upgrade --force-bottle gyubeom-j/tap/ssmctl
+)
 ```
 
 이 tap은 Homebrew 공식 저장소가 아닙니다. 설치 정의를 검토하고 필요한 경우 해당 formula만 신뢰하세요. Apple 보안을 해제하는 명령은 설치 과정에 포함하지 않습니다.
