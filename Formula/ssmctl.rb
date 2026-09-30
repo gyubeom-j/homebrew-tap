@@ -1,7 +1,7 @@
 # tools/homebrew가 생성합니다. 토큰이나 로컬 경로를 기록하지 않습니다.
 class Ssmctl < Formula
   desc "AWS Systems Manager 세션 접속 도구"
-  homepage "https://github.com/gyubeom-j/ssmctl"
+  homepage "https://github.com/gyubeom-j/ssmctl-go"
   version "0.1.0-rc.3"
 
   bottle do
@@ -15,11 +15,11 @@ class Ssmctl < Formula
     depends_on macos: :sequoia
 
     on_arm do
-      url "https://github.com/gyubeom-j/ssmctl/releases/download/v0.1.0-rc.3/ssmctl_v0.1.0-rc.3_darwin_arm64.tar.gz"
+      url "https://github.com/gyubeom-j/ssmctl-go/releases/download/v0.1.0-rc.3/ssmctl_v0.1.0-rc.3_darwin_arm64.tar.gz"
       sha256 "bc8c53027151161b79691b2b84d74ea8770143c4e18faaf985710325b9a52b7c"
     end
     on_intel do
-      url "https://github.com/gyubeom-j/ssmctl/releases/download/v0.1.0-rc.3/ssmctl_v0.1.0-rc.3_darwin_amd64.tar.gz"
+      url "https://github.com/gyubeom-j/ssmctl-go/releases/download/v0.1.0-rc.3/ssmctl_v0.1.0-rc.3_darwin_amd64.tar.gz"
       sha256 "83bbe052ba82c9d1d92071b9dd06a87ba97fd2bb57febe20c00f7d9696b6b377"
     end
   end
